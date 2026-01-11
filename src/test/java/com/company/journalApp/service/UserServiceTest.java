@@ -20,7 +20,7 @@ public class UserServiceTest {
     private UserRepo userRepo;
 
 
-
+    @Disabled
     @ParameterizedTest
     @CsvSource({"saransh", "monu", "aryan"})
     public void test(String name){

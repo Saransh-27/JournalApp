@@ -27,6 +27,7 @@
 		<url/>
 	</scm>
 	<properties>
+		<sonar.organization>saransh-27</sonar.organization>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
