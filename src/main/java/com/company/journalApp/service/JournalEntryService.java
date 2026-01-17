@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@Service   // ✅ use @Service instead of @Component (more semantic)
+@Service
 public class JournalEntryService {
 
     @Autowired
