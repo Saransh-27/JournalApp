@@ -20,7 +20,7 @@ public class UserServiceTest {
     private UserRepo userRepo;
 
 
-    @Disabled
+    @Disabled("Temporarily disabled – sample test example ")
     @ParameterizedTest
     @CsvSource({"saransh", "monu", "aryan"})
     public void test(String name){
@@ -28,7 +28,7 @@ public class UserServiceTest {
 
     }
 
-    @Disabled
+    @Disabled("Temporarily disabled – sample test example ")
     @ParameterizedTest
     @CsvSource({"1,2,3","4,5,6","7,8,9"})
     public void usertest(int a, int b, int accpected){

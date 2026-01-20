@@ -22,7 +22,7 @@ public class UserDetailsServiceImplTests {
     @Mock
     private UserRepo userRepo;
 
-    @Disabled
+    @Disabled("Temporarily disabled – DB config pending")
     @Test
     void loadUserByUsernameTest(){
         when(userRepo.findByUserName("saransh")).thenReturn(User.builder().userName("saransh").password("saransh").roles(new ArrayList<>()).build());
