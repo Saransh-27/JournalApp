@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import static org.bson.assertions.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
+@Disabled("Temporarily disabled – DB config pending")
 @SpringBootTest
 public class UserDetailsServiceImplTests {
     @Autowired
@@ -22,7 +23,6 @@ public class UserDetailsServiceImplTests {
     @Mock
     private UserRepo userRepo;
 
-    @Disabled("Temporarily disabled – DB config pending")
     @Test
     void loadUserByUsernameTest(){
         when(userRepo.findByUserName("saransh")).thenReturn(User.builder().userName("saransh").password("saransh").roles(new ArrayList<>()).build());

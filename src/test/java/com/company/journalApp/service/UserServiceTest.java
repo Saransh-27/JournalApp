@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+@Disabled("Temporarily disabled – sample tests example ")
 @SpringBootTest
 public class UserServiceTest {
 
@@ -20,7 +21,6 @@ public class UserServiceTest {
     private UserRepo userRepo;
 
 
-    @Disabled("Temporarily disabled – sample test example ")
     @ParameterizedTest
     @CsvSource({"saransh", "monu", "aryan"})
     public void test(String name){
@@ -28,8 +28,7 @@ public class UserServiceTest {
 
     }
 
-    @Disabled("Temporarily disabled – sample test example ")
-    @ParameterizedTest
+     @ParameterizedTest
     @CsvSource({"1,2,3","4,5,6","7,8,9"})
     public void usertest(int a, int b, int accpected){
        assertEquals(accpected, a+b, "failed for :" + a + "," + b + "," + accpected);
