@@ -12,13 +12,15 @@ import java.util.List;
 @Repository
 public class UserRepoimpl {
 
+
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public List<User> getUserforSA(){
+    public List<User> getUserforSA() {
         Query query = new Query();
-        query.addCriteria(Criteria.where("userName").is("saransh"));
-        List<User> users = mongoTemplate.find(query, User.class);
-        return users;
+        query.addCriteria(Criteria.where("email").regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,6}$"));
+        query.addCriteria(Criteria.where("sentimentAnalysis").is(true));
+        return mongoTemplate.find(query, User.class);
     }
+
 }

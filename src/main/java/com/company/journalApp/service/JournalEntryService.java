@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
 @Service
+@Slf4j
 public class JournalEntryService {
 
     @Autowired
@@ -23,11 +23,10 @@ public class JournalEntryService {
     @Autowired
     private UserService userService;
 
-    public JournalEntryService(JournalEntryRepo journalEntryRepo) {
-        this.journalEntryRepo = journalEntryRepo;
-    }
 
-    public void saveEntry (JournalEntry journalEntry, String userName) {
+
+    @Transactional
+    public void saveEntry(JournalEntry journalEntry, String userName) {
         try {
             User user = userService.findByUserName(userName);
             journalEntry.setDate(LocalDateTime.now());
@@ -35,14 +34,13 @@ public class JournalEntryService {
             user.getJournalEntries().add(saved);
             userService.saveUser(user);
         } catch (Exception e) {
-            log.error("Exception ", e);
+            throw new RuntimeException("An error occurred while saving the entry.", e);
         }
     }
 
-    public void saveEntry (JournalEntry journalEntry) {
-       journalEntryRepo.save(journalEntry);
+    public void saveEntry(JournalEntry journalEntry) {
+        journalEntryRepo.save(journalEntry);
     }
-
 
     public List<JournalEntry> getAll() {
         return journalEntryRepo.findAll();
@@ -58,18 +56,15 @@ public class JournalEntryService {
         try {
             User user = userService.findByUserName(userName);
             removed = user.getJournalEntries().removeIf(x -> x.getId().equals(id));
-            if (removed){
-            userService.saveUser(user);
-            journalEntryRepo.deleteById(id);
+            if (removed) {
+                userService.saveUser(user);
+                journalEntryRepo.deleteById(id);
             }
-        }catch (Exception e){
-            System.out.println(e);
-            throw new RuntimeException("An error occured while deleting th entry.", e);
+        } catch (Exception e) {
+            log.error("Error ",e);
+            throw new RuntimeException("An error occurred while deleting the entry.", e);
         }
         return removed;
     }
 
-//    public List<JournalEntry> findByUserName(String userName){
-//        return journalEntryRepo.findByUserName();
-//    }
 }
