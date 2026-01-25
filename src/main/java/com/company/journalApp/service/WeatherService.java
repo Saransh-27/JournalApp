@@ -21,20 +21,27 @@ public class WeatherService {
     @Autowired
     private AppCache appCache;
 
+    @Autowired
+    private RedisService redisService;
+
     public WeatherResponse getWeather(String city) {
-
-        String template = appCache.APP_CACHE.get("weather_api");
-
-        if (template == null) {
-            throw new RuntimeException("weather_api not found in APP_CACHE");
+        WeatherResponse weatherResponse = redisService.get("Weather_of_"+ city, WeatherResponse.class);
+        if(weatherResponse != null){
+            return weatherResponse;
+        }else {
+            String template = appCache.APP_CACHE.get("weather_api");
+            if (template == null) {
+                throw new RuntimeException("weather_api not found in APP_CACHE");
+            }
+            String finalapi = template.replace("<city>", city).replace("<apikey>", apiKey);
+            ResponseEntity<WeatherResponse> response = restTemplate.exchange(finalapi, HttpMethod.GET, null, WeatherResponse.class);
+            WeatherResponse body = response.getBody();
+            if (body != null){
+                redisService.set("Weather_of_" + city, body, 300l);
+            }
+            return body;
         }
 
-        String finalapi = template.replace("<city>", city).replace("<apikey>", apiKey);
-
-        ResponseEntity<WeatherResponse> response = restTemplate.exchange(finalapi, HttpMethod.GET, null, WeatherResponse.class);
-
-        WeatherResponse body = response.getBody();
-        return body;
     }
 
 }
