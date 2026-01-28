@@ -73,7 +73,7 @@ public class JournalEntryController {
         String username = authentication.getName();
         boolean removed = journalEntryService.deleteById(myId, username);
         if (removed) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
