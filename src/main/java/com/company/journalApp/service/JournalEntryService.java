@@ -55,16 +55,22 @@ public class JournalEntryService {
         boolean removed = false;
         try {
             User user = userService.findByUserName(userName);
-            removed = user.getJournalEntries().removeIf(x -> x.getId().equals(id));
+
+            removed = user.getJournalEntries()
+                    .removeIf(x -> x.getId().equals(id));
+
             if (removed) {
                 userService.saveUser(user);
                 journalEntryRepo.deleteById(id);
             }
         } catch (Exception e) {
-            log.error("Error ",e);
-            throw new RuntimeException("An error occurred while deleting the entry.", e);
+            log.error("Error ", e);
+            throw new RuntimeException(
+                    "An error occurred while deleting the entry.", e
+            );
         }
         return removed;
     }
+
 
 }
