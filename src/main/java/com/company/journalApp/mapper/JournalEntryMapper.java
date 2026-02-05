@@ -11,6 +11,7 @@ public class JournalEntryMapper {
         return JournalEntryDTO.builder()
                 .title(entry.getTitle())
                 .content(entry.getContent())
+                .sentiment(entry.getSentiment())
                 .build();
     }
 
@@ -18,6 +19,7 @@ public class JournalEntryMapper {
         JournalEntry entry = new JournalEntry();
         entry.setTitle(dto.getTitle());
         entry.setContent(dto.getContent());
+        entry.setSentiment(dto.getSentiment());
         return entry;
     }
 }

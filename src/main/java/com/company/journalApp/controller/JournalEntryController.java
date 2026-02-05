@@ -51,10 +51,10 @@ public class JournalEntryController {
         String username = authentication.getName();
 
         JournalEntry entry = JournalEntryMapper.toEntity(dto);
-        journalEntryService.saveEntry(entry, username);
+        JournalEntry savedEntry = journalEntryService.saveEntry(entry, username);
 
         return new ResponseEntity<>(
-                JournalEntryMapper.toDTO(entry),
+                JournalEntryMapper.toDTO(savedEntry),
                 HttpStatus.CREATED
         );
     }

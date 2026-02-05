@@ -1,5 +1,6 @@
 package com.company.journalApp.dto;
 
+import com.company.journalApp.enums.Sentiment;
 import lombok.*;
 
 @Getter
@@ -10,4 +11,5 @@ import lombok.*;
 public class JournalEntryDTO {
     private String title;
     private String content;
+    private Sentiment sentiment;
 }
